@@ -6,10 +6,10 @@ services:
     container_name: audisoft-postgres
     environment:
       POSTGRES_USER: audisoft
-      POSTGRES_PASSWORD: audisoft-password
+      POSTGRES_PASSWORD: audisoft
       POSTGRES_DB: audisoft
     ports:
-      - "5432:5432"
+      - "20000:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
