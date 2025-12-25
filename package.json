@@ -1,0 +1,10 @@
+{
+  "name": "audisoft-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "yarn dev:backend & yarn dev:frontend",
+    "dev:frontend": "yarn --cwd new-fe dev",
+    "dev:backend": "cd new-be && mvn spring-boot:run"
+  }
+}
