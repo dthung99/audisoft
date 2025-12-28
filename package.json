@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "yarn dev:backend & yarn dev:frontend",
-    "dev:frontend": "yarn --cwd new-fe dev",
-    "dev:backend": "cd new-be && mvn spring-boot:run"
+    "dev:frontend": "yarn --cwd fe dev",
+    "dev:backend": "cd be && mvn spring-boot:run"
   }
 }

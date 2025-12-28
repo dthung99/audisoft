@@ -1,0 +1,1345 @@
+{
+	"info": {
+		"_postman_id": "364b8efb-feb4-45fb-bff0-6f421212f034",
+		"name": "0. Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46763080",
+		"_collection_link": "https://evan-8275919.postman.co/workspace/node-codebase~2324e9f5-a5c0-4b33-a407-3fa2c2a5b2e0/collection/46763080-364b8efb-feb4-45fb-bff0-6f421212f034?action=share&source=collection_link&creator=46763080"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Create Account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user@example.com\",\r\n  \"password\": \"password123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data.accessToken && jsonData.data.refreshToken) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"accessToken\", jsonData.data.accessToken);\r",
+									"    \r",
+									"    // Set refreshToken as environment variable\r",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Tokens extracted and saved to environment variables\");\r",
+									"    console.log(\"Access Token: \" + jsonData.data.accessToken.substring(0, 20) + \"...\");\r",
+									"    console.log(\"Refresh Token: \" + jsonData.data.refreshToken.substring(0, 20) + \"...\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract tokens. Response structure doesn't match expected format.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login to get access token"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data.accessToken && jsonData.data.refreshToken) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"accessToken\", jsonData.data.accessToken);\r",
+									"    \r",
+									"    // Set refreshToken as environment variable\r",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Tokens extracted and saved to environment variables\");\r",
+									"    console.log(\"Access Token: \" + jsonData.data.accessToken.substring(0, 20) + \"...\");\r",
+									"    console.log(\"Refresh Token: \" + jsonData.data.refreshToken.substring(0, 20) + \"...\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract tokens. Response structure doesn't match expected format.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Login to get access token"
+					},
+					"response": []
+				},
+				{
+					"name": "Login Google",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/google",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"google"
+							]
+						},
+						"description": "Login to get access token"
+					},
+					"response": []
+				},
+				{
+					"name": "Login Facebook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/facebook",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"facebook"
+							]
+						},
+						"description": "Login to get access token"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data.accessToken && jsonData.data.refreshToken) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"accessToken\", jsonData.data.accessToken);\r",
+									"    \r",
+									"    // Set refreshToken as environment variable\r",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Tokens extracted and saved to environment variables\");\r",
+									"    console.log(\"Access Token: \" + jsonData.data.accessToken.substring(0, 20) + \"...\");\r",
+									"    console.log(\"Refresh Token: \" + jsonData.data.refreshToken.substring(0, 20) + \"...\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract tokens. Response structure doesn't match expected format.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"refreshToken\": \"{{refreshToken}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh"
+							]
+						},
+						"description": "Login to get access token"
+					},
+					"response": []
+				},
+				{
+					"name": "Current User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data.accessToken && jsonData.data.refreshToken) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"accessToken\", jsonData.data.accessToken);\r",
+									"    \r",
+									"    // Set refreshToken as environment variable\r",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Tokens extracted and saved to environment variables\");\r",
+									"    console.log(\"Access Token: \" + jsonData.data.accessToken.substring(0, 20) + \"...\");\r",
+									"    console.log(\"Refresh Token: \" + jsonData.data.refreshToken.substring(0, 20) + \"...\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract tokens. Response structure doesn't match expected format.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						},
+						"description": "Login to get access token"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data.accessToken && jsonData.data.refreshToken) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"accessToken\", jsonData.data.accessToken);\r",
+									"    \r",
+									"    // Set refreshToken as environment variable\r",
+									"    pm.environment.set(\"refreshToken\", jsonData.data.refreshToken);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Tokens extracted and saved to environment variables\");\r",
+									"    console.log(\"Access Token: \" + jsonData.data.accessToken.substring(0, 20) + \"...\");\r",
+									"    console.log(\"Refresh Token: \" + jsonData.data.refreshToken.substring(0, 20) + \"...\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract tokens. Response structure doesn't match expected format.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"language\": \"vi-VN\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						},
+						"description": "Login to get access token"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{accessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Permissions",
+			"item": [
+				{
+					"name": "Create Permission",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data.id) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"permissionId\", jsonData.data.id);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Id extracted and saved to environment variables\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract permissionId.\");\r",
+									"}\r",
+									"\r",
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data._id) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"permissionId\", jsonData.data._id);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Id extracted and saved to environment variables\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract permissionId.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"privilege\": \"user\",\n    \"action\": \"manage\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/permissions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"permissions"
+							]
+						},
+						"description": "Create a new permission"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Permissions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/permissions?page=1&limit=2&sort=createdAt:desc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "sort",
+									"value": "createdAt:desc"
+								}
+							]
+						},
+						"description": "Get all permissions with pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Permission by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/permissions/{{permissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"permissions",
+								"{{permissionId}}"
+							]
+						},
+						"description": "Get a specific permission by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Permission",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"privilege\": \"user\",\n    \"action\": \"delete\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/permissions/{{permissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"permissions",
+								"{{permissionId}}"
+							]
+						},
+						"description": "Update a permission by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Permission",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/permissions/{{permissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"permissions",
+								"{{permissionId}}"
+							]
+						},
+						"description": "Delete a permission by ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Create Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data.id) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"roleId\", jsonData.data.id);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Id extracted and saved to environment variables\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract roleId.\");\r",
+									"}\r",
+									"\r",
+									"// Extract accessToken and refreshToken from response\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains the expected structure\r",
+									"if (jsonData && jsonData.data && jsonData.data._id) {\r",
+									"    // Set accessToken as environment variable\r",
+									"    pm.environment.set(\"roleId\", jsonData.data._id);\r",
+									"    \r",
+									"    // Log success message to Postman console\r",
+									"    console.log(\"Id extracted and saved to environment variables\");\r",
+									"} else {\r",
+									"    // Log error if the expected structure is not found\r",
+									"    console.error(\"Failed to extract roleId.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roleName\": \"Admin\",\n    \"permissionIds\": [\"{{permissionId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/roles",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						},
+						"description": "Create a new role"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Roles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/roles?page=1&limit=10&sort=createdAt:desc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "createdAt:desc"
+								}
+							]
+						},
+						"description": "Get all roles with pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Role by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/roles/{{roleId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"{{roleId}}"
+							]
+						},
+						"description": "Get a specific role by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roleName\": \"Editor\",\n    \"permissionIds\": [\"{{permissionId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/roles/{{roleId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"{{roleId}}"
+							]
+						},
+						"description": "Update a role by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/roles/{{roleId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"{{roleId}}"
+							]
+						},
+						"description": "Delete a role by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Permissions from Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"permissionIds\": [\"{{permissionId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/roles/{{roleId}}/permissions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"{{roleId}}",
+								"permissions"
+							]
+						},
+						"description": "Remove permissions from a role"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Permissions to Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"permissionIds\": [\"{{permissionId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/roles/{{roleId}}/permissions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"{{roleId}}",
+								"permissions"
+							]
+						},
+						"description": "Add permissions to a role"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extract user ID from response",
+									"var jsonData = pm.response.json();",
+									"",
+									"// Check if the response contains the expected structure",
+									"if (jsonData && jsonData.data && jsonData.data.id) {",
+									"    // Set userId as environment variable",
+									"    pm.environment.set(\"userId\", jsonData.data.id);",
+									"    ",
+									"    // Log success message to Postman console",
+									"    console.log(\"User ID extracted and saved to environment variables\");",
+									"} else {",
+									"    // Log error if the expected structure is not found",
+									"    console.error(\"Failed to extract userId.\");",
+									"}",
+									"",
+									"// Extract user ID from response",
+									"var jsonData = pm.response.json();",
+									"",
+									"// Check if the response contains the expected structure",
+									"if (jsonData && jsonData.data && jsonData.data._id) {",
+									"    // Set userId as environment variable",
+									"    pm.environment.set(\"userId\", jsonData.data._id);",
+									"    ",
+									"    // Log success message to Postman console",
+									"    console.log(\"User ID extracted and saved to environment variables\");",
+									"} else {",
+									"    // Log error if the expected structure is not found",
+									"    console.error(\"Failed to extract userId.\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password123\",\n    \"roleIds\": [\"{{roleId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Create a new user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users?page=1&limit=10&sort=createdAt:desc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "createdAt:desc"
+								}
+							]
+						},
+						"description": "Get all users with pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "Get a specific user by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"updated@example.com\",\n    \"password\": \"newpassword123\",\n    \"roleIds\": [\"{{roleId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "Update a user by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "Delete a user by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Roles from User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roleIds\": [\"{{roleId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/{{userId}}/roles",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"roles"
+							]
+						},
+						"description": "Remove roles from a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Roles to User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roleIds\": [\"{{roleId}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/{{userId}}/roles",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}",
+								"roles"
+							]
+						},
+						"description": "Add roles to a user"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{accessToken}}",
+						"type": "string"
+					}
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "permissionId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "roleId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
